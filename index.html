@@ -1,18 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Random Trivia</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan Cannon - Front End Developer</title>
+    <link rel="icon" href="./assets/TRY-nobg.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+			flex-direction: column;
+        }
+
+        h2 {
+            color: #1a73e8;
+        }
+
+        .main-container {
+            border: 2px solid #1a73e8;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #2c2c2c;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            height: 85vh;
+            width: 90vw;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+		
+		.heading-container {
+            text-align: left;
+            padding-left: 40px;
+            padding-bottom: 20px;
+            color: #ffffff; /* Heading text color */
+        }
+
+		.left-column {
+            flex: 1.5; /* Increased width */
+            background-color: #2c2c2c; /* Consistent with container background */
+            padding: 20px;
+            overflow-y: auto;
+            overflow: auto;
+            color: #ffffff; /* Light text color */
+            text-align: left;
+        }
+
+        .right-column {
+            flex: 0.5; /* Decreased width */
+            background-color: #2c2c2c; /* Consistent with container background */
+            padding: 20px;
+            overflow-y: auto;
+            overflow: auto;
+            color: #ffffff; /* Light text color */
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .card-wrapper {
+            flex: 1;
+            margin: 10px;
+        }
+      
+      .trivia-container {
+            display: flex;
+			flex-direction: column;
+			width: 100%;
+			background-color: #6C757D;
+			margin: 10px;
+            padding: 10px;
+			border-radius: 10px;
+			justify-content: center;
+			align-items: center;
+			border: 2px solid #1a73e8;
+			
+      }
+	  
+	  .footer-container {
+			background-color: #121212; /* Choose a color that fits your design */
+			color: #ffffff; /* Text color */
+			text-align: center; /* Center align the text */
+			padding-top: 20px; /* Add some vertical padding */
+			font-size: 10px;
+			opacity: .80;
+		}
+        
+		.nav-item {
+            opacity: 0.8; /* Adjusted for dark mode */
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item:hover .nav-link {
+            opacity: 1;
+            color: #114c9a;
+        }
+		
+		.nav-link {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #ffffff; /* Light text color */
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link:hover {
+            background-color: #498ce5; /* Highlight color */
+        }
+
+        .resume-button {
+            background-color: #1a73e8; /* Adjusted button color */
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .resume-button:hover {
+            background-color: #0c5bc2; /* Darker on hover */
+            box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .column-wrapper {
+            display: flex;
+            flex-direction: row;
+            height: calc(100% - 60px); /* Adjust based on heading container's height */
+        }
+
+        .fade-transition {
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+		
+		.fade-in {
+			animation: fadeIn 0.5s;
+		}
+
+		.fade-out {
+			animation: fadeOut 0.5s;
+		}
+		
+		.disclaimer {
+			font-size: 1vw; /* Responsive font size */
+			text-align: center;
+			padding-top: 10px; 
+			padding-bottom: 10px; 
+			color: #ffffff; /* Text color */
+			/* Removed the fixed height */
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+
+		@keyframes fadeOut {
+			from { opacity: 1; }
+			to { opacity: 0; }
+		}
+		
+		#trivia-content {
+			width: 100%;
+			text-align: center;
+		}
+        
+		#timer {
+			width: 100%;
+			text-align: center;
+		}
+		
+    /*.left-column, .right-column {
+            flex: 1;
+            background-color: #2c2c2c;
+            padding: 20px;
+            overflow-y: auto;
+            color: #ffffff; 
+            text-align: left;
+        } */
+
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+        .column-wrapper {
+            flex-direction: column;
+           }
+        }
+		@media (max-width: 768px) {
+		.right-column {
+			overflow-y: visible; /* Remove scrolling from the right column */
+		}
+
+		.disclaimer {
+			font-size: 2vw; /* Larger font size for smaller screens */
+			padding-top: 8px;
+			padding-bottom: 8px;
+		}
+
+		.left-column, .right-column {
+			flex: none; /* Disable flex grow and shrink */
+			width: 100%; /* Both columns should take full width */
+			max-height: none; /* Remove any maximum height if set */
+		}
+
+        .heading-container {
+            width: 100%; /* Expand heading container to full width on mobile */
+            max-width: 100%; /* Ensure heading container doesn't exceed screen width */
+        }
+		.main-container {
+			height: auto; /* Allow the container to expand based on content */
+			padding-bottom: 20px; /* Add some bottom padding for spacing */
+		}
+		}
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="trivia-box" id="triviaBox">
-      <div class="question" id="question"></div>
-      <div class="answer" id="answer"></div>
+    <div class="container-fluid main-container">
+        <!-- Heading Container -->
+        <div class="heading-container">
+            <h1><img src="./assets/TRY-nobg.png" alt="Logo" height="50px" width="50px"> Ryan Cannon</h1>
+        </div>
+
+        <!-- New Wrapper for Columns -->
+        <div class="column-wrapper">
+            <div class="left-column">
+                <div id="content" class="p-4">
+                    <h2>Front End Developer</h2>
+                    <p>I am currently working as a front end IT specialist. My primary responsibilies include supporting our developers by reviewing and testing code which primarily includes HTML, CSS, JavaScript and PHP. Additionally, I work alongside other teams including marketing and product management to tackle front end development needs, communicate additional needs to our developers, and through cross-departmental efforts create a better experience for users.</p>
+                    <div class="text-left">
+                        <p>Toledo, Ohio | trycannon@gmail.com | <a href="https://www.linkedin.com/in/trycannon/" target="_blank">LinkedIn</a></p>
+                    </div>
+                    <!-- Placeholder for additional content -->
+                </div>
+            </div>
+            <div class="right-column">
+                <nav>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="changeContent('home')">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeContent('info')">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeContent('projects')">Projects/Contributions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="changeContent('contact')">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="script.js"></script>
+	<div class="footer-container">
+    <p>&copy; 2024 tryvia.io All rights reserved</p>
+	</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>    <script>
+    let triviaQuestions = [
+        { question: "What is the chemical symbol for gold?", answer: "Gold's chemical symbol is Au." },
+        { question: "What is the capital city of Japan?", answer: "The capital city of Japan is Tokyo." },
+        { question: "Who was the first President of the United States?", answer: "The first President of the United States was George Washington." },
+		{ question: "Who wrote the novel 1984?", answer: "1984 was written by George Orwell." },
+		{ question: "Which country hosted the 2016 Summer Olympics?", answer: "The 2016 Summer Olympics were hosted by Brazil." },
+		{ question: "Who composed the famous symphony No. 5 in C minor?", answer: "Ludwig van Beethoven composed Symphony No. 5 in C minor." },
+		{ question: "Who painted the Mona Lisa?", answer: "The Mona Lisa was painted by Leonardo da Vinci." },
+		{ question: "What movie won the Academy Award for Best Picture in 2000?", answer: "Gladiator won the Academy Award for Best Picture in 2000." },
+		{ question: "Who is known as the inventor of the World Wide Web?", answer: "Tim Berners-Lee is known as the inventor of the World Wide Web." },
+		{ question: "What planet is known as the Red Planet?", answer: "Mars is known as the Red Planet." },
+		{ question: "What is the largest organ in the human body?", answer: "The skin is the largest organ in the human body." },
+        { question: "What is the value of Pi up to two decimal places?", answer: "The value of Pi up to two decimal places is 3.14." },
+        { question: "Which country is known for inventing pizza?", answer: "Italy is known for inventing pizza." },
+		{ question: "What is the fastest land animal in the world?", answer: "The cheetah is the fastest land animal in the world." },
+		{ question: "What is the most spoken language in the world?", answer: "The most spoken language in the world is Mandarin Chinese." },
+		{ question: "Which TV show featured characters named Ross, Rachel, and Joey?", answer: "Friends featured characters named Ross, Rachel, and Joey." },
+		{ question: "Who is considered the founder of modern haute couture?", answer: "Charles Frederick Worth is considered the founder of modern haute couture." },
+		{ question: "What board game involves buying and selling properties?", answer: "Monopoly is the board game that involves buying and selling properties." },
+		{ question: "Who was the first female Prime Minister of the United Kingdom?", answer: "The first female Prime Minister of the United Kingdom was Margaret Thatcher." },
+		{ question: "What is the tallest type of tree in the world?", answer: "The tallest type of tree in the world is the redwood, specifically, the species Sequoia sempervirens" },
+    ];
+
+function startTriviaGame() {
+    let currentQuestionIndex = Math.floor(Math.random() * triviaQuestions.length);
+    let isQuestionVisible = true;
+    let triviaContent = document.getElementById('trivia-content');
+    let timerDisplay = document.getElementById('timer');
+    let countdown;
+    let timer;
+
+function showNext() {
+    clearInterval(timer); // Clear existing timer
+
+    // Function to update content
+    function updateContent() {
+        triviaContent.innerHTML = isQuestionVisible 
+            ? triviaQuestions[currentQuestionIndex].question 
+            : triviaQuestions[currentQuestionIndex].answer;
+    }
+
+    // Function to start the countdown timer
+    function startCountdown() {
+        let timeLeft = isQuestionVisible ? 10 : 5;
+        timerDisplay.innerHTML = `Time left: ${timeLeft} seconds`;
+
+        countdown = () => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                timerDisplay.innerHTML = `Time left: ${timeLeft} seconds`;
+            } else {
+                clearInterval(timer);
+                if (!isQuestionVisible) {
+                    // Update the question index only when moving to the next question
+                    currentQuestionIndex = (currentQuestionIndex + 1) % triviaQuestions.length;
+                }
+                isQuestionVisible = !isQuestionVisible;
+                showNext();
+            }
+        };
+
+        timer = setInterval(countdown, 1000);
+    }
+
+    // Fade out existing content
+    triviaContent.classList.add('fade-out');
+    triviaContent.classList.remove('fade-in');
+
+    // Update content after fade-out transition (500ms) then fade in
+    setTimeout(() => {
+        updateContent();
+
+        // Fade in updated content and start the countdown
+        triviaContent.classList.remove('fade-out');
+        triviaContent.classList.add('fade-in');
+        startCountdown();
+    }, 500);
+}
+
+    showNext();
+}
+
+    function changeContent(section) {
+        const contentDiv = document.getElementById('content');
+        contentDiv.classList.add('fade-transition', 'hidden');
+        contentDiv.style.opacity = 0;
+
+            setTimeout(() => {
+                switch (section) {
+                    case 'home':
+                        contentDiv.innerHTML = '<h2>Front End Developer</h2><p>I am currently working as a front end IT specialist. My primary responsibilies include supporting our developers by reviewing and testing code which primarily includes HTML, CSS, JavaScript and PHP. Additionally, I work alongside other teams including marketing and product management to tackle front end development needs, communicate additional needs to our developers, and through cross-departmental efforts create a better experience for users.</p>';
+                        contentDiv.innerHTML += '<div class="text-left"><p>Toledo, Ohio | trycannon@gmail.com | <a href="https://www.linkedin.com/in/trycannon/" target="_blank">LinkedIn</a></p></div>';
+                        break;
+                    case 'info':
+                        contentDiv.innerHTML = '<h2>Info</h2><p>I am a Front-End Web Developer based in Toledo, Ohio, with a Bachelor\'s degree in Digital Marketing from Southern New Hampshire University. My work experience includes roles as a Front End IT Specialist at SD Bullion and as a Junior Developer at WaudWare. My skill set encompasses front-end website content management using HTML, CSS, and JavaScript, software development in FoxPro, site optimization, and a proficiency in Adobe Creative Suite. I strive to demonstrate a collaborative approach in my projects, ensuring code clarity, working with cross-functional teams, and staying updated on industry trends.</p>';
+                        contentDiv.innerHTML += '<div class="text-left"><a href="./assets/resume.pdf" class="resume-button btn btn-primary" target="_blank">Resume</a></div>';
+                        break;
+                    case 'projects':
+                        contentDiv.innerHTML = `
+                            <h2>Projects/Contributions</h2>
+                            <div class="card-container">
+                                <div class="card-wrapper">
+                                    <div class="card mb-3 bg-dark text-white" style="width: 100%;">
+                                        <img src="./assets/sdbullion.png" class="card-img-top" alt="SD Bullion Home Page">
+                                        <div class="card-body">
+                                            <h5 class="card-title">SD Bullion</h5>
+                                            <p class="card-text">Platform: Adobe Commerce</br>Languages Used:</br>
+                                                <ul>
+                                                    <li>HTML</li>
+                                                    <li>CSS</li>
+                                                    <li>JavaScript</li>
+                                                    <li>PHP</li>
+                                                </ul>
+                                            </p>
+                                            <a href="https://sdbullion.com/" class="btn btn-secondary" target="_blank">Visit Site</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-wrapper">
+                                    <div class="card mb-3 bg-dark text-white" style="width: 100%;">
+                                        <img src="./assets/buchuvida.png" class="card-img-top" alt="BuchuVida Home Page">
+                                        <div class="card-body">
+                                            <h5 class="card-title">BuchuVida</h5>
+                                            <p class="card-text">Platform: Squarespace</br>Languages Used:</br>
+                                                <ul>
+                                                    <li>HTML</li>
+                                                    <li>CSS</li>
+                                                </ul>
+                                            </p>
+                                            <a href="https://buchuvida.com/" class="btn btn-secondary" target="_blank">Visit Site</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="trivia-container">
+							<div id="trivia-content"></div>
+							<div id="timer"></div>
+							<div class="disclaimer"><p>*This is a passion project that is currently under development. In the future I intend to add a variety of interactive features and eventually have this be its own trivia site.</p></div>
+                            </div>
+                        `;
+						startTriviaGame();
+                        break;
+                    case 'contact':
+                        contentDiv.innerHTML = `
+                            <h2>Contact</h2>
+							<form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSccrckH1hbkLkfDo8duUTwziE4lllNyGcB8YRTVcy9xheN1mQ/formResponse" method="POST">
+								<div class="mb-3">
+									<label for="entry.36853193" class="form-label">Name</label>
+									<input type="text" class="form-control" name="entry.36853193" id="entry.36853193" placeholder="Your Name">
+								</div>
+								<div class="mb-3">
+									<label for="entry.2017912987" class="form-label">Email</label>
+									<input type="email" class="form-control" name="entry.2017912987" id="entry.2017912987" placeholder="Your Email">
+								</div>
+								<div class="mb-3">
+									<label for="entry.1739195872" class="form-label">Message</label>
+									<textarea class="form-control" name="entry.1739195872" id="entry.1739195872" rows="4" placeholder="Your Message"></textarea>
+								</div>
+								<button type="submit" class="resume-button">Submit</button>
+							</form>
+                        `;
+                        break;
+                    default:
+                        break;
+                }
+                contentDiv.classList.remove('hidden');
+                contentDiv.classList.add('visible');
+                contentDiv.style.opacity = 1;
+            }, 500);
+        }
+        
+    </script>
 </body>
 </html>
