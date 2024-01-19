@@ -1,5 +1,5 @@
 body {
-    background-color: #121212;
+    background: linear-gradient(to bottom right, #121212, #1a73e8, #002a61);
     font-family: 'Arial', sans-serif;
     font-size: 18px;
     line-height: 1.6;
@@ -33,26 +33,26 @@ h2 {
     text-align: left;
     padding-left: 40px;
     padding-bottom: 20px;
-    color: #ffffff; /* Heading text color */
+    color: #ffffff;
 }
 
 .left-column {
-    flex: 1.5; /* Increased width */
-    background-color: #2c2c2c; /* Consistent with container background */
+    flex: 1.5;
+    background-color: #2c2c2c;
     padding: 20px;
     overflow-y: auto;
     overflow: auto;
-    color: #ffffff; /* Light text color */
+    color: #ffffff;
     text-align: left;
 }
 
 .right-column {
-    flex: 0.5; /* Decreased width */
-    background-color: #2c2c2c; /* Consistent with container background */
+    flex: 0.5;
+    background-color: #2c2c2c;
     padding: 20px;
     overflow-y: auto;
     overflow: auto;
-    color: #ffffff; /* Light text color */
+    color: #ffffff;
 }
 
 .card-container {
@@ -81,16 +81,16 @@ h2 {
 }
 
 .footer-container {
-    background-color: #121212; /* Choose a color that fits your design */
-    color: #ffffff; /* Text color */
-    text-align: center; /* Center align the text */
-    padding-top: 20px; /* Add some vertical padding */
+    background-color: #00000000;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 20px;
     font-size: 10px;
     opacity: .80;
 }
 
 .nav-item {
-    opacity: 0.8; /* Adjusted for dark mode */
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 
@@ -103,16 +103,16 @@ h2 {
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
-    color: #ffffff; /* Light text color */
+    color: #ffffff;
     transition: all 0.2s ease-in-out;
 }
 
 .nav-link:hover {
-    background-color: #498ce5; /* Highlight color */
+    background-color: #498ce5;
 }
 
 .resume-button {
-    background-color: #1a73e8; /* Adjusted button color */
+    background-color: #1a73e8;
     color: #ffffff;
     font-weight: bold;
     border: none;
@@ -123,14 +123,14 @@ h2 {
 }
 
 .resume-button:hover {
-    background-color: #0c5bc2; /* Darker on hover */
+    background-color: #0c5bc2;
     box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.5);
 }
 
 .column-wrapper {
     display: flex;
     flex-direction: row;
-    height: calc(100% - 60px); /* Adjust based on heading container's height */
+    height: calc(100% - 60px);
 }
 
 .fade-transition {
@@ -154,12 +154,11 @@ h2 {
 }
 
 .disclaimer {
-    font-size: 1vw; /* Responsive font size */
+    font-size: 1vw;
     text-align: center;
     padding-top: 10px; 
     padding-bottom: 10px; 
-    color: #ffffff; /* Text color */
-    /* Removed the fixed height */
+    color: #ffffff;
 }
 
 @keyframes fadeIn {
@@ -196,27 +195,27 @@ h2 {
 }
 @media (max-width: 768px) {
 .right-column {
-    overflow-y: visible; /* Remove scrolling from the right column */
+    overflow-y: visible;
 }
 
 .disclaimer {
-    font-size: 2vw; /* Larger font size for smaller screens */
+    font-size: 2vw;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
 .left-column, .right-column {
-    flex: none; /* Disable flex grow and shrink */
-    width: 100%; /* Both columns should take full width */
-    max-height: none; /* Remove any maximum height if set */
+    flex: none;
+    width: 100%;
+    max-height: none;
 }
 
 .heading-container {
-    width: 100%; /* Expand heading container to full width on mobile */
-    max-width: 100%; /* Ensure heading container doesn't exceed screen width */
+    width: 100%;
+    max-width: 100%;
 }
 .main-container {
-    height: auto; /* Allow the container to expand based on content */
-    padding-bottom: 20px; /* Add some bottom padding for spacing */
+    height: auto;
+    padding-bottom: 20px;
 }
 }

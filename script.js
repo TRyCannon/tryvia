@@ -1,24 +1,24 @@
 let triviaQuestions = [
-    { question: "What is the chemical symbol for gold?", answer: "Gold's chemical symbol is Au." },
-    { question: "What is the capital city of Japan?", answer: "The capital city of Japan is Tokyo." },
-    { question: "Who was the first President of the United States?", answer: "The first President of the United States was George Washington." },
-    { question: "Who wrote the novel 1984?", answer: "1984 was written by George Orwell." },
-    { question: "Which country hosted the 2016 Summer Olympics?", answer: "The 2016 Summer Olympics were hosted by Brazil." },
-    { question: "Who composed the famous symphony No. 5 in C minor?", answer: "Ludwig van Beethoven composed Symphony No. 5 in C minor." },
-    { question: "Who painted the Mona Lisa?", answer: "The Mona Lisa was painted by Leonardo da Vinci." },
-    { question: "What movie won the Academy Award for Best Picture in 2000?", answer: "Gladiator won the Academy Award for Best Picture in 2000." },
-    { question: "Who is known as the inventor of the World Wide Web?", answer: "Tim Berners-Lee is known as the inventor of the World Wide Web." },
-    { question: "What planet is known as the Red Planet?", answer: "Mars is known as the Red Planet." },
-    { question: "What is the largest organ in the human body?", answer: "The skin is the largest organ in the human body." },
-    { question: "What is the value of Pi up to two decimal places?", answer: "The value of Pi up to two decimal places is 3.14." },
-    { question: "Which country is known for inventing pizza?", answer: "Italy is known for inventing pizza." },
-    { question: "What is the fastest land animal in the world?", answer: "The cheetah is the fastest land animal in the world." },
-    { question: "What is the most spoken language in the world?", answer: "The most spoken language in the world is Mandarin Chinese." },
-    { question: "Which TV show featured characters named Ross, Rachel, and Joey?", answer: "Friends featured characters named Ross, Rachel, and Joey." },
-    { question: "Who is considered the founder of modern haute couture?", answer: "Charles Frederick Worth is considered the founder of modern haute couture." },
-    { question: "What board game involves buying and selling properties?", answer: "Monopoly is the board game that involves buying and selling properties." },
-    { question: "Who was the first female Prime Minister of the United Kingdom?", answer: "The first female Prime Minister of the United Kingdom was Margaret Thatcher." },
-    { question: "What is the tallest type of tree in the world?", answer: "The tallest type of tree in the world is the redwood, specifically, the species Sequoia sempervirens" },
+    { question: "What is the chemical symbol for gold?", answer: "Answer: Gold's chemical symbol is Au." },
+    { question: "What is the capital city of Japan?", answer: "Answer: The capital city of Japan is Tokyo." },
+    { question: "Who was the first President of the United States?", answer: "Answer: The first President of the United States was George Washington." },
+    { question: "Who wrote the novel 1984?", answer: "Answer: 1984 was written by George Orwell." },
+    { question: "Which country hosted the 2016 Summer Olympics?", answer: "Answer: The 2016 Summer Olympics were hosted by Brazil." },
+    { question: "Who composed the famous symphony No. 5 in C minor?", answer: "Answer: Ludwig van Beethoven composed Symphony No. 5 in C minor." },
+    { question: "Who painted the Mona Lisa?", answer: "Answer: The Mona Lisa was painted by Leonardo da Vinci." },
+    { question: "What movie won the Academy Award for Best Picture in 2000?", answer: "Answer: Gladiator won the Academy Award for Best Picture in 2000." },
+    { question: "Who is known as the inventor of the World Wide Web?", answer: "Answer: Tim Berners-Lee is known as the inventor of the World Wide Web." },
+    { question: "What planet is known as the Red Planet?", answer: "Answer: Mars is known as the Red Planet." },
+    { question: "What is the largest organ in the human body?", answer: "Answer: The skin is the largest organ in the human body." },
+    { question: "What is the value of Pi up to two decimal places?", answer: "Answer: The value of Pi up to two decimal places is 3.14." },
+    { question: "Which country is known for inventing pizza?", answer: "Answer: Italy is known for inventing pizza." },
+    { question: "What is the fastest land animal in the world?", answer: "Answer: The cheetah is the fastest land animal in the world." },
+    { question: "What is the most spoken language in the world?", answer: "Answer: The most spoken language in the world is Mandarin Chinese." },
+    { question: "Which TV show featured characters named Ross, Rachel, and Joey?", answer: "Answer: Friends featured characters named Ross, Rachel, and Joey." },
+    { question: "Who is considered the founder of modern haute couture?", answer: "Answer: Charles Frederick Worth is considered the founder of modern haute couture." },
+    { question: "What board game involves buying and selling properties?", answer: "Answer: Monopoly is the board game that involves buying and selling properties." },
+    { question: "Who was the first female Prime Minister of the United Kingdom?", answer: "Answer: The first female Prime Minister of the United Kingdom was Margaret Thatcher." },
+    { question: "What is the tallest type of tree in the world?", answer: "Answer: The tallest type of tree in the world is the redwood, specifically, the species Sequoia sempervirens" },
 ];
 
 function startTriviaGame() {
@@ -30,7 +30,7 @@ let countdown;
 let timer;
 
 function showNext() {
-clearInterval(timer); // Clear existing timer
+clearInterval(timer);
 
 // Function to update content
 function updateContent() {
@@ -66,7 +66,6 @@ function startCountdown() {
 triviaContent.classList.add('fade-out');
 triviaContent.classList.remove('fade-in');
 
-// Update content after fade-out transition (500ms) then fade in
 setTimeout(() => {
     updateContent();
 
