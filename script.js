@@ -110,6 +110,7 @@ function changeContent(section) {
                                                 <li>JavaScript</li>
                                                 <li>PHP</li>
                                             </ul>
+                                            My Contribution: QA, content management and page building, aided developers and other teams in fixing bugs and adding content and feaures to the site.
                                         </p>
                                         <a href="https://sdbullion.com/" class="btn btn-secondary" target="_blank">Visit Site</a>
                                     </div>
@@ -125,6 +126,7 @@ function changeContent(section) {
                                                 <li>HTML</li>
                                                 <li>CSS</li>
                                             </ul>
+                                            My Contribution: Primarily a marketing role, created banners and page layouts, developed content, managed storefront, and aided in creating site styling.
                                         </p>
                                         <a href="https://buchuvida.com/" class="btn btn-secondary" target="_blank">Visit Site</a>
                                     </div>
