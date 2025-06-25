@@ -1,0 +1,23 @@
+# Commands to run in Replit Shell to push TRYVIA to GitHub
+
+# 1. Configure Git (replace with your actual details)
+git config --global user.name "Your GitHub Username"
+git config --global user.email "your-github-email@example.com"
+
+# 2. Check current status
+git status
+
+# 3. Add all files to staging
+git add .
+
+# 4. Commit your changes
+git commit -m "Initial commit: TRYVIA live trivia game with PostgreSQL database"
+
+# 5. Add your GitHub repository as remote (replace 'yourusername' with your actual GitHub username)
+git remote add origin https://github.com/yourusername/tryvia.git
+
+# 6. Push to GitHub
+git push -u origin main
+
+# If you get an authentication error, you may need to use a Personal Access Token instead of password
+# Go to GitHub Settings > Developer settings > Personal access tokens to create one

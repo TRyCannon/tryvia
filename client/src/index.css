@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 40%, 6%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 40%, 6%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 40%, 6%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(222, 84%, 5%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(222, 84%, 5%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(215, 20%, 65%);
+  --radius: 0.5rem;
+  
+  /* Custom trivia colors */
+  --electric: hsl(207, 90%, 54%);
+  --purple: hsl(271, 91%, 65%);
+  --bright-green: hsl(134, 61%, 41%);
+  --warm-orange: hsl(25, 95%, 53%);
+  --hot-pink: hsl(330, 81%, 60%);
+  --sunny-yellow: hsl(45, 100%, 51%);
+  --dark-gray: hsl(210, 29%, 24%);
+}
+
+.dark {
+  --background: hsl(210, 40%, 6%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(217, 32%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(210, 40%, 6%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(210, 40%, 6%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(217, 32%, 17%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(217, 32%, 17%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(217, 32%, 17%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(215, 20%, 65%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-purple-500 via-blue-500 to-purple-600 font-sans antialiased text-foreground min-h-screen;
+  }
+}
+
+@layer utilities {
+  .gradient-bg {
+    background: linear-gradient(135deg, hsl(252, 69%, 69%) 0%, hsl(251, 75%, 66%) 100%);
+  }
+  
+  .card-gradient {
+    background: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(210, 40%, 98%) 100%);
+  }
+  
+  .progress-bar {
+    transition: width 0.1s linear;
+  }
+  
+  .question-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .answer-reveal {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .phase-indicator {
+    transition: all 0.3s ease;
+  }
+
+  .electric {
+    color: hsl(207, 90%, 54%);
+  }
+  
+  .bg-electric {
+    background-color: hsl(207, 90%, 54%);
+  }
+  
+  .border-electric {
+    border-color: hsl(207, 90%, 54%);
+  }
+  
+  .purple {
+    color: hsl(271, 91%, 65%);
+  }
+  
+  .bg-purple {
+    background-color: hsl(271, 91%, 65%);
+  }
+  
+  .bright-green {
+    color: hsl(134, 61%, 41%);
+  }
+  
+  .bg-bright-green {
+    background-color: hsl(134, 61%, 41%);
+  }
+  
+  .border-bright-green {
+    border-color: hsl(134, 61%, 41%);
+  }
+  
+  .warm-orange {
+    color: hsl(25, 95%, 53%);
+  }
+  
+  .bg-warm-orange {
+    background-color: hsl(25, 95%, 53%);
+  }
+  
+  .sunny-yellow {
+    color: hsl(45, 100%, 51%);
+  }
+  
+  .bg-sunny-yellow {
+    background-color: hsl(45, 100%, 51%);
+  }
+  
+  .dark-gray {
+    color: hsl(210, 29%, 24%);
+  }
+  
+  .bg-dark-gray {
+    background-color: hsl(210, 29%, 24%);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 20px hsla(207, 90%, 54%, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px hsla(207, 90%, 54%, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
