@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_BASE_URL;
+
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
 async function throwIfResNotOk(res: Response) {
@@ -7,7 +9,7 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
-const API = import.meta.env.VITE_API_BASE_URL;
+
 
 export async function apiRequest(
   method: string,
