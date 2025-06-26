@@ -32,7 +32,7 @@ export default defineConfig({
     rollupOptions: {
       // Point Vite at your HTML entry
       input: path.resolve(import.meta.dirname, "client", "index.html"),
-    };
+    },
   },
   server: {
     fs: {
