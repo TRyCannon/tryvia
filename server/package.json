@@ -19,19 +19,7 @@
     "esbuild": "^0.25.5"
   },
   "scripts": {
-    "build": "esbuild index.ts --platform=node --bundle --format=esm \
-      --external:express \
-      --external:nanoid \
-      --external:drizzle-orm \
-      --external:drizzle-zod \
-      --external:@neondatabase/serverless \
-      --external:vite \
-      --external:@vitejs/plugin-react \
-      --external:@replit/vite-plugin-runtime-error-modal \
-      --external:@replit/vite-plugin-cartographer \
-      --external:ws \
-      --external:pg \
-      --outfile=dist/index.js",
-    "start": "node dist/index.js"
+  "build": "esbuild index.ts --platform=node --bundle --format=esm --external:express --external:nanoid --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --external:vite --external:@vitejs/plugin-react --external:@replit/vite-plugin-runtime-error-modal --external:@replit/vite-plugin-cartographer --external:ws --external:pg --outfile=dist/index.js",
+  "start": "node dist/index.js"
   }
 }
