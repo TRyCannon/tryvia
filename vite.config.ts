@@ -26,8 +26,13 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    // Build client into server/dist/public so Express can find it
+    outDir: path.resolve(import.meta.dirname, "server", "dist", "public"),
     emptyOutDir: true,
+    rollupOptions: {
+      // Point Vite at your HTML entry
+      input: path.resolve(import.meta.dirname, "client", "index.html"),
+    };
   },
   server: {
     fs: {
