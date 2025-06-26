@@ -9,8 +9,6 @@ async function throwIfResNotOk(res: Response) {
   }
 }
 
-
-
 export async function apiRequest(
   method: string,
   url: string,
@@ -25,9 +23,6 @@ export async function apiRequest(
 
   return res;
 }
-
-  await throwIfResNotOk(res);
-  return res;
 
 type UnauthorizedBehavior = "returnNull" | "throw";
 export const getQueryFn: <T>(options: {
