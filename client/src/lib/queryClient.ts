@@ -26,7 +26,6 @@ export async function apiRequest(
 
   await throwIfResNotOk(res);
   return res;
-}
 
 type UnauthorizedBehavior = "returnNull" | "throw";
 export const getQueryFn: <T>(options: {
