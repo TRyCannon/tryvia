@@ -1,32 +1,27 @@
 // server/routes.ts
-
 import { Express, Router } from "express";
 import { db } from "./db";
-import { triviaQuestions } from "@shared/schema"; // adjust this path if your schema lives elsewhere
+import { triviaQuestions } from "@shared/schema";
 
 /**
- * Register all your API routes onto the incoming Express `app`,
- * then return the HTTP server instance (so your index.ts can listen on it).
+ * Registers all API routes on the given Express app.
+ * Returns the app so index.ts can call `.listen()` on it.
  */
 export async function registerRoutes(app: Express) {
   const router = Router();
 
-  // GET /api/trivia/questions
+  // GET /api/trivia/questions  — returns all trivia questions
   router.get("/api/trivia/questions", async (_req, res, next) => {
     try {
-      // Pull all questions from the `triviaQuestions` table
       const questions = await db.select().from(triviaQuestions);
-      res.json(questions);
+      return res.json(questions);
     } catch (err) {
-      next(err);
+      return next(err);
     }
   });
 
-  // TODO: add other API routes here, e.g. POST /api/trivia/answer, etc.
+  // (You can add more routes here, e.g. POST to submit answers, etc.)
 
   app.use(router);
-
-  // If your setupVite needs the raw HTTP server, you might be creating it here.
-  // If registerRoutes should return the Express `app`, change your index.ts accordingly.
-  return app;
+  return app; // your index.ts does server.listen(), and app.listen is valid
 }
