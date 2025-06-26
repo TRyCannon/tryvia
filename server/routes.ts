@@ -1,37 +1,32 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
-import { storage } from "./storage";
+// server/routes.ts
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  // Get all trivia questions
-  app.get("/api/trivia/questions", async (req, res) => {
+import { Express, Router } from "express";
+import { db } from "./db";
+import { triviaQuestions } from "@shared/schema"; // adjust this path if your schema lives elsewhere
+
+/**
+ * Register all your API routes onto the incoming Express `app`,
+ * then return the HTTP server instance (so your index.ts can listen on it).
+ */
+export async function registerRoutes(app: Express) {
+  const router = Router();
+
+  // GET /api/trivia/questions
+  router.get("/api/trivia/questions", async (_req, res, next) => {
     try {
-      const questions = await storage.getAllTriviaQuestions();
+      // Pull all questions from the `triviaQuestions` table
+      const questions = await db.select().from(triviaQuestions);
       res.json(questions);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch trivia questions" });
+    } catch (err) {
+      next(err);
     }
   });
 
-  // Get a specific trivia question
-  app.get("/api/trivia/questions/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ message: "Invalid question ID" });
-      }
+  // TODO: add other API routes here, e.g. POST /api/trivia/answer, etc.
 
-      const question = await storage.getTriviaQuestion(id);
-      if (!question) {
-        return res.status(404).json({ message: "Question not found" });
-      }
+  app.use(router);
 
-      res.json(question);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch trivia question" });
-    }
-  });
-
-  const httpServer = createServer(app);
-  return httpServer;
+  // If your setupVite needs the raw HTTP server, you might be creating it here.
+  // If registerRoutes should return the Express `app`, change your index.ts accordingly.
+  return app;
 }
