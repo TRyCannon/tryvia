@@ -10,8 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 // Enable CORS for front-end domains and for testing directly at the API URL
 const allowedOrigins = [
   "https://www.tryvia.io",
-  "https://tryvia.onrender.com",
-  "https://tryvia-api.onrender.com"
+  "https://tryvia.onrender.com"
 ];
 app.use(
   cors({
