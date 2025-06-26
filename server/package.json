@@ -7,6 +7,7 @@
     "@replit/vite-plugin-cartographer": "^0.2.7",
     "@replit/vite-plugin-runtime-error-modal": "^0.0.3",
     "@vitejs/plugin-react": "^4.6.0",
+    "cors": "^2.8.5",
     "drizzle-orm": "^0.44.2",
     "drizzle-zod": "^0.8.2",
     "express": "^4.18.2",
