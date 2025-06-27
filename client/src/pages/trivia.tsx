@@ -8,10 +8,15 @@ import TriviaCard from '@/components/trivia-card';
 import PreviousQuestions from '@/components/previous-questions';
 import type { TriviaQuestion } from '@shared/schema';
 
+function shuffleArray<T>(array: T[]): T[] {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 export default function TriviaPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [shuffledQuestions, setShuffledQuestions] = useState<TriviaQuestion[]>([]);
 
   const { data: questions, isLoading } = useQuery<TriviaQuestion[]>({
     queryKey: ['/api/trivia/questions'],
@@ -30,7 +35,9 @@ export default function TriviaPage() {
     },
     onTimeUp: () => {
       if (questions) {
-        setCurrentQuestionIndex((prev) => (prev + 1) % questions.length);
+        const reshuffled = shuffleArray([...questions]);
+        setShuffledQuestions(reshuffled);
+        setCurrentQuestionIndex(0);
       }
     },
     isPaused
@@ -44,7 +51,13 @@ export default function TriviaPage() {
     setSoundEnabled(!soundEnabled);
   };
 
-  if (isLoading || !questions || questions.length === 0) {
+  useEffect(() => {
+    if (questions) {
+      setShuffledQuestions(shuffleArray([...questions]));
+    }
+  }, [questions]);
+
+  if (isLoading || !shuffledQuestions || shuffledQuestions.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center text-white">
@@ -55,7 +68,7 @@ export default function TriviaPage() {
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
   return (
     <div className="min-h-screen">
@@ -69,7 +82,7 @@ export default function TriviaPage() {
               </div>
               <h1 className="text-2xl font-bold text-white">TRYVIA</h1>
             </div>
-            
+
             {/* Phase Indicator */}
             <div className="flex items-center space-x-4 text-white">
               <div className="phase-indicator flex items-center space-x-2">
@@ -90,7 +103,7 @@ export default function TriviaPage() {
               </div>
             </div>
           </div>
-          
+
           {/* Progress Bar */}
           <div className="mt-3 w-full bg-white/20 rounded-full h-2">
             <div 
@@ -117,7 +130,7 @@ export default function TriviaPage() {
           {/* Previous Questions Sidebar */}
           <div className="lg:col-span-1">
             <PreviousQuestions
-              questions={questions}
+              questions={shuffledQuestions}
               currentQuestionIndex={currentQuestionIndex}
             />
           </div>
@@ -126,8 +139,7 @@ export default function TriviaPage() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col space-y-3">
-        
-        {/*}
+        {/* 
         <Button
           onClick={toggleSound}
           className="bg-white/90 backdrop-blur-md shadow-lg rounded-full w-12 h-12 p-0 text-dark-gray hover:bg-white"
@@ -135,7 +147,6 @@ export default function TriviaPage() {
           <Volume2 size={20} />
         </Button>
         */}
-
         <Button
           onClick={togglePause}
           className="bg-sunny-yellow shadow-lg rounded-full w-12 h-12 p-0 text-dark-gray hover:bg-yellow-400"
