@@ -7,14 +7,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Enable CORS for your front-end domains and allow credentials
+// ✅ CORS: Include all frontend domain variants
 const allowedOrigins = [
+  "https://tryvia.io",
   "https://www.tryvia.io",
   "https://tryvia.onrender.com"
 ];
+
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log("Incoming request origin:", origin); // For debugging (can remove later)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -25,7 +28,7 @@ app.use(
   })
 );
 
-// Request logging middleware for /api routes
+// Middleware: Log API requests
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -54,7 +57,7 @@ app.use((req, res, next) => {
   // Register API routes
   const server = await registerRoutes(app);
 
-  // Error handler
+  // Global error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -62,14 +65,14 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // Vite HMR in development, static serve in production
+  // Dev = Vite, Prod = Static
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // Start listening
+  // Start server
   const port = process.env.PORT || 5000;
   server.listen(
     { port, host: "0.0.0.0", reusePort: true },
