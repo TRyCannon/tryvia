@@ -145,6 +145,9 @@ export default function TriviaPage() {
           {isPaused ? <Play size={20} /> : <Pause size={20} />}
         </Button>
       </div>
+      <footer className="text-center text-sm text-white/70 py-6">
+        © 2025 Tryvia. All rights reserved.
+      </footer>
     </div>
   );
 }
