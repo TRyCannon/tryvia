@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { Brain, Volume2, Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTriviaTimer } from '@/hooks/use-trivia-timer';
@@ -16,7 +15,7 @@ export default function TriviaPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [shuffledQuestions, setShuffledQuestions] = useState<TriviaQuestion[]>([]);
+  const [questionOrder, setQuestionOrder] = useState<TriviaQuestion[]>([]);
 
   const { data: questions, isLoading } = useQuery<TriviaQuestion[]>({
     queryKey: ['/api/trivia/questions'],
@@ -30,34 +29,26 @@ export default function TriviaPage() {
   } = useTriviaTimer({
     questionTime: 15,
     answerTime: 10,
-    onPhaseChange: (phase) => {
-      // Could add sound effects here if needed
-    },
+    onPhaseChange: () => {},
     onTimeUp: () => {
-      if (questions) {
-        const reshuffled = shuffleArray([...questions]);
-        setShuffledQuestions(reshuffled);
-        setCurrentQuestionIndex(0);
-      }
+      setCurrentQuestionIndex((prev) =>
+        prev + 1 < questionOrder.length ? prev + 1 : prev
+      );
     },
     isPaused
   });
 
-  const togglePause = () => {
-    setIsPaused(!isPaused);
-  };
-
-  const toggleSound = () => {
-    setSoundEnabled(!soundEnabled);
-  };
+  const togglePause = () => setIsPaused(!isPaused);
+  const toggleSound = () => setSoundEnabled(!soundEnabled);
 
   useEffect(() => {
     if (questions) {
-      setShuffledQuestions(shuffleArray([...questions]));
+      const shuffled = shuffleArray([...questions]);
+      setQuestionOrder(shuffled);
     }
   }, [questions]);
 
-  if (isLoading || !shuffledQuestions || shuffledQuestions.length === 0) {
+  if (isLoading || questionOrder.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center text-white">
@@ -68,7 +59,7 @@ export default function TriviaPage() {
     );
   }
 
-  const currentQuestion = shuffledQuestions[currentQuestionIndex];
+  const currentQuestion = questionOrder[currentQuestionIndex];
 
   return (
     <div className="min-h-screen">
@@ -90,8 +81,8 @@ export default function TriviaPage() {
                   currentPhase === 'question' ? 'bg-electric' : 'bg-bright-green'
                 }`} />
                 <span className={`font-bold text-base px-3 py-2 rounded-full ${
-                  currentPhase === 'question' 
-                    ? 'bg-electric text-white' 
+                  currentPhase === 'question'
+                    ? 'bg-electric text-white'
                     : 'bg-bright-green text-white'
                 }`}>
                   {currentPhase === 'question' ? 'Question Time!' : 'Answer Revealed'}
@@ -106,7 +97,7 @@ export default function TriviaPage() {
 
           {/* Progress Bar */}
           <div className="mt-3 w-full bg-white/20 rounded-full h-2">
-            <div 
+            <div
               className={`progress-bar h-2 rounded-full transition-all duration-100 ${
                 currentPhase === 'question' ? 'bg-electric' : 'bg-bright-green'
               }`}
@@ -118,7 +109,7 @@ export default function TriviaPage() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Current Question Section */}
+          {/* Current Question */}
           <div className="lg:col-span-2">
             <TriviaCard
               question={currentQuestion}
@@ -127,17 +118,17 @@ export default function TriviaPage() {
             />
           </div>
 
-          {/* Previous Questions Sidebar */}
+          {/* Previous Questions */}
           <div className="lg:col-span-1">
             <PreviousQuestions
-              questions={shuffledQuestions}
+              questions={questionOrder}
               currentQuestionIndex={currentQuestionIndex}
             />
           </div>
         </div>
       </main>
 
-      {/* Floating Action Buttons */}
+      {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col space-y-3">
         {/* 
         <Button
