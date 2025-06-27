@@ -126,13 +126,16 @@ export default function TriviaPage() {
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col space-y-3">
+        
+        {/*}
         <Button
           onClick={toggleSound}
           className="bg-white/90 backdrop-blur-md shadow-lg rounded-full w-12 h-12 p-0 text-dark-gray hover:bg-white"
         >
           <Volume2 size={20} />
         </Button>
-        
+        */}
+
         <Button
           onClick={togglePause}
           className="bg-sunny-yellow shadow-lg rounded-full w-12 h-12 p-0 text-dark-gray hover:bg-yellow-400"
